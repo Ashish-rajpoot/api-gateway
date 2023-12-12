@@ -30,5 +30,17 @@ pipeline{
                         sh 'sudo docker tag api-gateway ashish142/api-gateway:1.0.0'
                     }
                 }
+    stage("restart image"){
+                    steps{
+                        sh '''
+                        if (sudo docker ps -a | grep -v "api-gateway"); then
+                        def dockerId = sudo docker ps -a | grep -v "api-gateway" | awk '{print $1}';
+                         sudo docker stop dockerId;
+                         sudo docker rm -f dockerId;
+                         sudo docker run --restart always --name api-gateway --network micro api-gateway;
+                        fi
+                        '''
+                    }
+                }
     }
 }
