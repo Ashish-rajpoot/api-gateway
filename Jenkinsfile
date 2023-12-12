@@ -32,7 +32,7 @@ pipeline{
                 }
     stage("restart image"){
                     steps{
-                        def dockerId = sh(script:'sudo docker ps -a | grep api-gateway | awk \'{print $1}'\',
+                        def dockerId = sh(script:'sudo docker ps -a | grep api-gateway | awk \'{print $1}\'',
                         returnStdout:true).trim()
                         if (dockerId); then
                             sh 'sudo docker stop $dockerId'
