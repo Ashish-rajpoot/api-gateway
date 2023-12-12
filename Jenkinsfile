@@ -30,18 +30,22 @@ pipeline{
                         sh 'sudo docker tag api-gateway ashish142/api-gateway:1.0.0'
                     }
                 }
-    stage("restart image"){
-                    steps{
-                        def dockerId = sh(script:'sudo docker ps -a | grep api-gateway | awk \'{print $1}\'',returnStdout:true).trim()
-                        if (dockerId){
-                            sh 'sudo docker stop $dockerId'
-                            sh 'sudo docker rm -f $dockerId'
-                        }else{
-                            echo "Container not found";
-                        }
-                         sh 'sudo docker run --restart always --name api-gateway --network micro api-gateway'
+stage("restart image") {
+    steps {
+        script {
+            def dockerId = sh(script: 'sudo docker ps -a | grep api-gateway | awk \'{print $1}\'', returnStdout: true).trim()
 
-                    }
-                }
+            if (dockerId) {
+                sh 'sudo docker stop $dockerId'
+                sh 'sudo docker rm -f $dockerId'
+            } else {
+                echo "Container not found."
+            }
+
+            sh 'sudo docker run --restart always --name api-gateway --network micro api-gateway'
+        }
+    }
+}
+
     }
 }
