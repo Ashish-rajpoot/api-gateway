@@ -42,7 +42,7 @@ stage("restart image") {
                 echo "Container not found."
             }
 
-            sh 'sudo docker run --restart always --name api-gateway --network micro api-gateway'
+//             sh 'sudo docker run --restart always --name api-gateway --network micro api-gateway'
         }
     }
 }
