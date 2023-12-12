@@ -36,8 +36,8 @@ stage("restart image") {
             def dockerId = sh(script: 'sudo docker ps -a | grep api-gateway | awk \'{print $1}\'', returnStdout: true).trim()
             echo "$dockerId";
             if (dockerId) {
-                sh 'sudo docker stop $dockerId'
-                sh 'sudo docker rm -f $dockerId'
+                sh "sudo docker stop $dockerId"
+                sh "sudo docker rm -f $dockerId"
             } else {
                 echo "Container not found."
             }
