@@ -33,13 +33,13 @@ pipeline{
     stage("restart image"){
                     steps{
                         sh '''
-                        if (sudo docker ps -a | grep -v "api-gateway"); then
-                        def dockerId = sudo docker ps -a | grep api-gateway | awk '{print $1}';
-                         sudo docker stop dockerId;
-                         sudo docker rm -f dockerId;
-                         sudo docker run --restart always --name api-gateway --network micro api-gateway;
-                         else
-                         echo "ok";
+                        if (sudo docker ps -a | grep api-gateway); then
+                            def dockerId = sudo docker ps -a | grep api-gateway | awk '{print $1}'
+                            sudo docker stop dockerId
+                            sudo docker rm -f dockerId
+                            sudo docker run --restart always --name api-gateway --network micro api-gateway;
+                        else
+                            echo "ok";
                         fi
                         '''
                     }
