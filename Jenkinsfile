@@ -34,7 +34,7 @@ stage("restart image") {
     steps {
         script {
             def isDockerId = sh(script: 'sudo docker ps -a | grep api-gateway | awk \'{print $1}\'', returnStdout: true).trim()
-            def dockerId = sh '(sudo docker ps -a | grep api-gateway | awk '{print $1}')'
+            echo "$isDockerId";
             if (isDockerId) {
                 sh 'sudo docker stop $dockerId'
                 sh 'sudo docker rm -f $dockerId'
