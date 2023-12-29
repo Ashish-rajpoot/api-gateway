@@ -1,68 +1,68 @@
-'`server':
-  port: 8083
-eureka:
-  client:
-    serverUrl:
-      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
-logging:
-  level:
-    org:
-      springframework:
-        cloud:
-          gateway: TRACE
-          gateway.route.RouteDefinitionLocator: INFO
-    root: INFO
-spring:
-  application:
-    name: ${SPRING_APPLICATION_NAME:api-gateway}
-  cloud:
-    gateway:
-      routes:
-        -   filters:
-              - RequestAuthenticationFilter
-            id: quiz-service
-            predicates: Path=/quiz/**
-            uri: lb://quiz-service
-        -   filters:
-              - RequestAuthenticationFilter
-            id: question-service
-            predicates: Path=/question/**
-            uri: lb://question-service
-        -   filters:
-              - StripPrefix=0
-            id: authentication-service-login
-            predicates:
-              - Path=/auth/login
-            uri: lb://authentication-service
-        -   filters:
-              - StripPrefix=0
-            id: authentication-service-register
-            predicates:
-              - Path=/auth/register
-            uri: lb://authentication-service
-        -   filters:
-              - StripPrefix=0
-            id: user-service-email
-            predicates:
-              - Path=/user/email
-            uri: lb://user-service
-        -   filters:
-              - RequestAuthenticationFilter
-            id: auth-service-authenticated
-            predicates:
-              - Path=/auth/**
-            uri: lb://authentication-service
-        -   filters:
-              - RequestAuthenticationFilter
-            id: user-service-authenticated
-            predicates:
-              - Path=/user/**
-            uri: lb://user-service
-        -   filters:
-              - StripPrefix=0
-            id: user-service-email
-            predicates:
-              - Path=/user/add-user
-            uri: lb://user-service
-  main:
-    web-application-type: reactive
+#'`server':
+#  port: 8083
+#eureka:
+#  client:
+#    serverUrl:
+#      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        cloud:
+#          gateway: TRACE
+#          gateway.route.RouteDefinitionLocator: INFO
+#    root: INFO
+#spring:
+#  application:
+#    name: ${SPRING_APPLICATION_NAME:api-gateway}
+#  cloud:
+#    gateway:
+#      routes:
+#        -   filters:
+#              - RequestAuthenticationFilter
+#            id: quiz-service
+#            predicates: Path=/quiz/**
+#            uri: lb://quiz-service
+#        -   filters:
+#              - RequestAuthenticationFilter
+#            id: question-service
+#            predicates: Path=/question/**
+#            uri: lb://question-service
+#        -   filters:
+#              - StripPrefix=0
+#            id: authentication-service-login
+#            predicates:
+#              - Path=/auth/login
+#            uri: lb://authentication-service
+#        -   filters:
+#              - StripPrefix=0
+#            id: authentication-service-register
+#            predicates:
+#              - Path=/auth/register
+#            uri: lb://authentication-service
+#        -   filters:
+#              - StripPrefix=0
+#            id: user-service-email
+#            predicates:
+#              - Path=/user/email
+#            uri: lb://user-service
+#        -   filters:
+#              - RequestAuthenticationFilter
+#            id: auth-service-authenticated
+#            predicates:
+#              - Path=/auth/**
+#            uri: lb://authentication-service
+#        -   filters:
+#              - RequestAuthenticationFilter
+#            id: user-service-authenticated
+#            predicates:
+#              - Path=/user/**
+#            uri: lb://user-service
+#        -   filters:
+#              - StripPrefix=0
+#            id: user-service-email
+#            predicates:
+#              - Path=/user/add-user
+#            uri: lb://user-service
+#  main:
+#    web-application-type: reactive
